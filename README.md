@@ -50,4 +50,4 @@
 - Api request
 - UseEffect tools
 
-- Link to Project https://bdangel1.github.io/se_project_round_react/
+- Link to Project  https://bdangel1.github.io/around-react/
