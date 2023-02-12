@@ -1,6 +1,6 @@
 import React from "react";
 import PopupWithForm from "./PopupWithForm";
-export default function editAvatar({ isOpen, onClose }) {
+export default function EditAvatar({ isOpen, onClose }) {
   return (
     <PopupWithForm
       title="Update profile picture"
