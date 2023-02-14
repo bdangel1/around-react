@@ -17,7 +17,7 @@ export default function Card(props) {
         <h2 className="card__title">{props.card.name}</h2>
         <div className="card__likes">
           <button type="button" className="card__like-button"></button>
-          <div className="card__likes-count"></div>
+          <div className="card__likes-count">{props.card.likes.length}</div>
         </div>
       </div>
     </li>

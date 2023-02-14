@@ -7,6 +7,7 @@ export default function EditProfile({ isOpen, onClose }) {
       name="popup popup_type_profile"
       isOpen={isOpen}
       onClose={onClose}
+      buttonText={"Save"}
     >
       <fieldset className="form__fieldset">
         <input
@@ -32,10 +33,6 @@ export default function EditProfile({ isOpen, onClose }) {
           maxLength={400}
         />
         <span id="job_input-error" className="form__input-error"></span>
-
-        <button type="submit" className="form__button">
-          Save
-        </button>
       </fieldset>
     </PopupWithForm>
   );

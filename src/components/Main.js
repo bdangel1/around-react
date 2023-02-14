@@ -9,18 +9,18 @@ export default function Main({
   onCardClick,
 }) {
   // set state
-  const [userName, setUserName] = useState([]);
-  const [userDescription, setUserDescription] = useState([]);
-  const [userAvatar, setUserAvatar] = useState([]);
+  const [userName, setUserName] = useState("");
+  const [userDescription, setUserDescription] = useState("");
+  const [userAvatar, setUserAvatar] = useState("");
   const [cards, setCards] = useState([]);
   // useEffect api
   useEffect(() => {
     api
       .getUserInfo()
       .then((userData) => {
-        setUserName(userData);
-        setUserDescription(userData);
-        setUserAvatar(userData);
+        setUserName(userData.name);
+        setUserDescription(userData.about);
+        setUserAvatar(userData.avatar);
       })
       .catch(console.log);
   }, []);
@@ -35,12 +35,12 @@ export default function Main({
   }, []);
 
   return (
-    <div>
+    <main>
       <section className="profile">
         <div className="profile__avatar">
           <div className="profile__change-hide">
             <button
-              // onClick={onEditAvatarClick}
+              onClick={onEditAvatarClick}
               type="button"
               className="profile__change-button"
             >
@@ -51,25 +51,23 @@ export default function Main({
               />
             </button>
           </div>
-
           <img
-            style={{ backgroundImage: `url(${userAvatar})` }}
             onClick={onEditAvatarClick}
-            // src={userAvatar.avatar}
+            src={userAvatar}
             alt="profile
               pic"
             className="profile__image"
           />
           <div className="profile__info">
             <div className="profile__name">
-              <h1 className="profile__name-info">{userName.name}</h1>
+              <h1 className="profile__name-info">{userName}</h1>
               <button
                 onClick={onEditProfileClick}
                 type="button"
                 className="profile__name-button"
               />
             </div>
-            <p className="profile__info-job">{userDescription.about}</p>
+            <p className="profile__info-job">{userDescription}</p>
           </div>
         </div>
         <button
@@ -87,6 +85,6 @@ export default function Main({
           })}
         </ul>
       </section>
-    </div>
+    </main>
   );
 }

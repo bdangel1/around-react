@@ -7,6 +7,7 @@ export default function AddNewPlace({ isOpen, onClose }) {
       name="popup popup_type_add-card"
       isOpen={isOpen}
       onClose={onClose}
+      buttonText={"Save"}
     >
       <fieldset className="form__fieldset">
         <input
@@ -30,9 +31,6 @@ export default function AddNewPlace({ isOpen, onClose }) {
           required
         />
         <span id="link_input-error" className="form__input-error"></span>
-        <button type="submit" className="form__button">
-          Save
-        </button>
       </fieldset>
     </PopupWithForm>
   );

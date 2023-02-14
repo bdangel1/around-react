@@ -7,6 +7,7 @@ export default function EditAvatar({ isOpen, onClose }) {
       name="popup popup_type_avatar"
       isOpen={isOpen}
       onClose={onClose}
+      buttonText={"Save"}
     >
       <fieldset className="form__fieldset">
         <input
@@ -18,9 +19,6 @@ export default function EditAvatar({ isOpen, onClose }) {
           required
         />
         <span id="link_input-avatar-error" className="form__input-error"></span>
-        <button type="submit" className="form__button">
-          Save
-        </button>
       </fieldset>
     </PopupWithForm>
   );
