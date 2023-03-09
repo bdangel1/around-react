@@ -1,38 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext } from "react";
 import profileChange from "../images/edit.svg";
-import { api } from "../utils/Api";
 import Card from "./Card";
+import { CurrentUserContext } from "../contexts/CurrentUserContext";
+
 export default function Main({
   onEditProfileClick,
   onEditAvatarClick,
   onAddPlaceClick,
   onCardClick,
+  cards,
+  onCardLike,
+  onDeleteClick,
 }) {
-  // set state
-  const [userName, setUserName] = useState("");
-  const [userDescription, setUserDescription] = useState("");
-  const [userAvatar, setUserAvatar] = useState("");
-  const [cards, setCards] = useState([]);
-  // useEffect api
-  useEffect(() => {
-    api
-      .getUserInfo()
-      .then((userData) => {
-        setUserName(userData.name);
-        setUserDescription(userData.about);
-        setUserAvatar(userData.avatar);
-      })
-      .catch(console.log);
-  }, []);
-
-  useEffect(() => {
-    api
-      .getCards()
-      .then((res) => {
-        setCards(res);
-      })
-      .catch(console.log);
-  }, []);
+  const currentUser = useContext(CurrentUserContext);
 
   return (
     <main>
@@ -53,21 +33,21 @@ export default function Main({
           </div>
           <img
             onClick={onEditAvatarClick}
-            src={userAvatar}
+            src={currentUser.avatar}
             alt="profile
               pic"
             className="profile__image"
           />
           <div className="profile__info">
             <div className="profile__name">
-              <h1 className="profile__name-info">{userName}</h1>
+              <h1 className="profile__name-info">{currentUser.name}</h1>
               <button
                 onClick={onEditProfileClick}
                 type="button"
                 className="profile__name-button"
               />
             </div>
-            <p className="profile__info-job">{userDescription}</p>
+            <p className="profile__info-job">{currentUser.about}</p>
           </div>
         </div>
         <button
@@ -80,7 +60,13 @@ export default function Main({
         <ul className="cards__list">
           {cards.map((card) => {
             return (
-              <Card card={card} key={card._id} onCardClick={onCardClick} />
+              <Card
+                card={card}
+                key={card._id}
+                onCardClick={onCardClick}
+                onCardLike={onCardLike}
+                onDeleteClick={onDeleteClick}
+              />
             );
           })}
         </ul>

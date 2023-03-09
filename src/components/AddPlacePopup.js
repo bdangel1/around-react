@@ -1,13 +1,40 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import PopupWithForm from "./PopupWithForm";
-export default function AddNewPlace({ isOpen, onClose }) {
+export default function AddPlacePopup({
+  isOpen,
+  onClose,
+  onAddPlaceSubmit,
+  isLoading,
+}) {
+  const [name, setName] = useState("");
+  const [link, setLink] = useState("");
+  function handleSubmit(e) {
+    e.preventDefault();
+    onAddPlaceSubmit({ name, link });
+  }
+  const handleCardName = (e) => {
+    setName(e.target.value);
+  };
+  const handleCardLink = (e) => {
+    setLink(e.target.value);
+  };
+
+  useEffect(() => {
+    if (isOpen) {
+      // reset name
+      setName("");
+      // reset link
+      setLink("");
+    }
+  }, [isOpen]);
   return (
     <PopupWithForm
       title="New place"
       name="popup popup_type_add-card"
       isOpen={isOpen}
       onClose={onClose}
-      buttonText={"Save"}
+      buttonText={isLoading ? "saving..." : "create"}
+      onSubmit={handleSubmit}
     >
       <fieldset className="form__fieldset">
         <input
@@ -19,6 +46,7 @@ export default function AddNewPlace({ isOpen, onClose }) {
           required
           minLength="1"
           maxLength="30"
+          onChange={handleCardName}
         />
         <span id="title_input-error" className="form__input-error"></span>
 
@@ -29,6 +57,7 @@ export default function AddNewPlace({ isOpen, onClose }) {
           placeholder="image URL"
           name="link"
           required
+          onChange={handleCardLink}
         />
         <span id="link_input-error" className="form__input-error"></span>
       </fieldset>

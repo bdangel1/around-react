@@ -1,4 +1,4 @@
-export default class Api {
+class Api {
   constructor(options) {
     this._baseUrl = options.baseUrl;
     this._headers = options.headers;
@@ -16,6 +16,7 @@ export default class Api {
       headers: this._headers,
     }).then(this._checkRes);
   }
+
   getCards() {
     return fetch(this._baseUrl + "/cards", {
       headers: this._headers,
@@ -42,17 +43,19 @@ export default class Api {
       }),
     }).then(this._checkRes);
   }
-  addLike(id) {
-    return fetch(this._baseUrl + "/cards/likes/" + id, {
-      method: "PUT",
-      headers: this._headers,
-    }).then(this._checkRes);
-  }
-  removeLike(id) {
-    return fetch(this._baseUrl + "/cards/likes/" + id, {
-      method: "DELETE",
-      headers: this._headers,
-    }).then(this._checkRes);
+
+  changeLikeCardStatus(cardId, isLiked) {
+    if (!isLiked) {
+      return fetch(this._baseUrl + "/cards/likes/" + cardId, {
+        method: "DELETE",
+        headers: this._headers,
+      }).then(this._checkRes);
+    } else {
+      return fetch(this._baseUrl + "/cards/likes/" + cardId, {
+        method: "PUT",
+        headers: this._headers,
+      }).then(this._checkRes);
+    }
   }
   editAvatar(avatar) {
     return fetch(this._baseUrl + "/users/me/avatar", {
