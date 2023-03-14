@@ -34,8 +34,7 @@ export default function Main({
           <img
             onClick={onEditAvatarClick}
             src={currentUser.avatar}
-            alt="profile
-              pic"
+            alt="profile pic"
             className="profile__image"
           />
           <div className="profile__info">

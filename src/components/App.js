@@ -26,7 +26,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [isDeletePopupOpen, setIsDeletePopupOpen] = useState(false);
 
-  //  useEffects api
+  //  useEffects
   useEffect(() => {
     api
       .getUserInfo()
@@ -43,6 +43,18 @@ function App() {
         setCards(res);
       })
       .catch(console.log);
+  }, []);
+
+  useEffect(() => {
+    const closeByEscape = (e) => {
+      if (e.key === "Escape") {
+        closeAllPopups();
+      }
+    };
+
+    document.addEventListener("keydown", closeByEscape);
+
+    return () => document.removeEventListener("keydown", closeByEscape);
   }, []);
 
   // event handlers
@@ -105,13 +117,16 @@ function App() {
   // functions
   function handleCardLike(card) {
     const isLiked = card.likes.some((user) => user._id === currentUser._id);
-    api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
-      setCards((cards) =>
-        cards.map((currentCard) =>
-          currentCard._id === card._id ? newCard : currentCard
-        )
-      );
-    });
+    api
+      .changeLikeCardStatus(card._id, !isLiked)
+      .then((newCard) => {
+        setCards((cards) =>
+          cards.map((currentCard) =>
+            currentCard._id === card._id ? newCard : currentCard
+          )
+        );
+      })
+      .catch(console.log);
   }
   function handleCardDelete(e) {
     e.preventDefault();
@@ -185,11 +200,7 @@ function App() {
             onClose={closeAllPopups}
             onSubmitDelete={handleCardDelete}
           />
-          <section className="cards">
-            <ul className="cards__list" />
-          </section>
 
-          {/* 3rd popup  */}
           <ImagePopup
             card={selectedCard}
             isOpen={isImagePreviewOpen}

@@ -15,6 +15,6 @@ export default function DeletePopup({
       onClose={onClose}
       buttonText={isLoading ? "Deleting..." : "Yes"}
       onSubmit={onSubmitDelete}
-    ></PopupWithForm>
+    />
   );
 }
