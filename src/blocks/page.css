@@ -4,6 +4,7 @@
   background-position: center;
   margin: 0 auto;
   height: 100%;
+  border: solid black;
 }
 .page__content {
   max-width: 880px;
